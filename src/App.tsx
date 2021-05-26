@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from './routes/HomePage';
 import NotFoundPage from './routes/NotFoundPage';
 
+import './globalStyle.css';
+
 function App() {
   return (
     <BrowserRouter>
