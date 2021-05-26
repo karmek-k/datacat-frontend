@@ -1,8 +1,17 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import HomePage from './routes/HomePage';
+import NotFoundPage from './routes/NotFoundPage';
 
 function App() {
-  return <Typography variant="h1">Hello, world!</Typography>;
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;
