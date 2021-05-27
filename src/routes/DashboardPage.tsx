@@ -1,7 +1,9 @@
 import React from 'react';
+import DownServicesAlert from '../components/dashboard/DownServicesAlert';
 import Layout from '../components/shared/Layout';
+import { DashboardService } from '../interfaces/DashboardService';
 
-const mockData = [
+const mockData: DashboardService[] = [
   {
     name: 'CatPics',
     url: 'https://catpics.com',
@@ -25,9 +27,11 @@ const mockData = [
 ];
 
 const DashboardPage: React.FC = () => {
-  const downCount = mockData.filter(item => item.downFor !== null).length;
-
-  return <Layout>{downCount}</Layout>;
+  return (
+    <Layout>
+      <DownServicesAlert services={mockData} />
+    </Layout>
+  );
 };
 
 export default DashboardPage;
