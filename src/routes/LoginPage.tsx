@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
     },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+        backgroundColor: '#2d2e40'
+    },
 }));
 
 const LoginPage: React.FC = () => {
@@ -70,6 +74,16 @@ const LoginPage: React.FC = () => {
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
                     />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={handleSubmit}
+                    >
+                        Sign In
+                    </Button>
                 </form>
             </div>
         </Container>
