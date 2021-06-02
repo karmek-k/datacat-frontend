@@ -35,6 +35,14 @@ const LoginPage: React.FC = () => {
         password: ""
     });
 
+    const handleChange = (e:any) => {
+        const { id, value } = e.target
+        setLoginData(prevLoginData => ({
+            ...prevLoginData,
+            [id] : value
+        }));
+    };
+
     const handleSubmit = (e:any) => {
         e.preventDefault();
         console.log("handle submit");
@@ -58,6 +66,8 @@ const LoginPage: React.FC = () => {
                         name="username"
                         autoComplete="username"
                         autoFocus
+                        value={loginData.username}
+                        onChange={handleChange}
                     />
                     <TextField
                         variant="outlined"
@@ -69,6 +79,8 @@ const LoginPage: React.FC = () => {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        value={loginData.password}
+                        onChange={handleChange}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
