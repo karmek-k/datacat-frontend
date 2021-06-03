@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from './routes/HomePage';
 import NotFoundPage from './routes/NotFoundPage';
 import DashboardPage from './routes/DashboardPage';
+import LoginPage from './routes/LoginPage';
 
 import './globalStyle.css';
 
@@ -12,6 +13,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/dashboard" component={DashboardPage} />
+        <Route exact path="/login" component={LoginPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
