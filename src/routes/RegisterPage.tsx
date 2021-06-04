@@ -55,7 +55,7 @@ const RegisterPage: React.FC = () => {
                 <Typography component="h2" variant="h5">
                     Register
                 </Typography>
-                <form className={classes.form}>
+                <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                     <Controller 
                         name="username"
                         control={control}
@@ -73,6 +73,8 @@ const RegisterPage: React.FC = () => {
                                 autoFocus
                                 value={registerData.username}
                                 onChange={handleChange}
+                                error={!!error}
+                                helperText={error ? error.message : null}
                             />
                         )}
                         rules= {{ required: 'Username required'}}
@@ -93,7 +95,9 @@ const RegisterPage: React.FC = () => {
                                 autoComplete="email"
                                 autoFocus
                                 value={registerData.email}
-                                onChange={handleChange} 
+                                onChange={handleChange}
+                                error={!!error}
+                                helperText={error ? error.message : null} 
                             />
                         )}
                         rules={{ required: 'Email required' }}
@@ -115,6 +119,8 @@ const RegisterPage: React.FC = () => {
                                 autoFocus
                                 value={registerData.password1}
                                 onChange={handleChange}
+                                error={!!error}
+                                helperText={error ? error.message : null}
                             />
                         )}
                         rules={{ required: 'Password required' }}
@@ -136,6 +142,8 @@ const RegisterPage: React.FC = () => {
                                 autoFocus
                                 value={registerData.password2}
                                 onChange={handleChange}
+                                error={!!error}
+                                helperText={error ? error.message : null}
                             />
                         )}
                         rules={{ required: 'Password required' }}
@@ -146,7 +154,6 @@ const RegisterPage: React.FC = () => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={handleSubmit(onSubmit)}
                     >
                         Register
                     </Button>
