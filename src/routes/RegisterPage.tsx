@@ -62,7 +62,8 @@ const RegisterPage: React.FC = () => {
                         name="username"
                         autoComplete="username"
                         autoFocus
-                        
+                        value={registerData.username}
+                        onChange={handleChange}
                     />
                     <TextField 
                         variant="outlined"
@@ -74,6 +75,8 @@ const RegisterPage: React.FC = () => {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        value={registerData.email}
+                        onChange={handleChange}
                     />
                     <TextField
                         variant="outlined"
@@ -84,6 +87,9 @@ const RegisterPage: React.FC = () => {
                         label="Password"
                         type="password"
                         id="password1"
+                        autoFocus
+                        value={registerData.password1}
+                        onChange={handleChange}
                     />
                     <TextField
                         variant="outlined"
@@ -94,6 +100,9 @@ const RegisterPage: React.FC = () => {
                         label="Repeat Password"
                         type="password"
                         id="password2"
+                        autoFocus
+                        value={registerData.password2}
+                        onChange={handleChange}
                     />
                     <Button
                         type="submit"
