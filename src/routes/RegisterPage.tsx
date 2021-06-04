@@ -28,10 +28,20 @@ const useStyles = makeStyles((theme) => ({
 const RegisterPage: React.FC = () => {
     const classes = useStyles();
 
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password1, setPassword1] = useState("");
-    const [password2, setPassword2] = useState("");
+    const [registerData, setRegisterData] = useState({
+        "username": "",
+        "email": "",
+        "password1": "",
+        "password2": ""
+    });
+
+    const handleChange = (e: any) => {
+        const {id, value} = e.target;
+        setRegisterData(prevRegisterData =>({
+            ...prevRegisterData,
+            [id]: value
+        }));
+    };
 
     
     return (
@@ -52,7 +62,7 @@ const RegisterPage: React.FC = () => {
                         name="username"
                         autoComplete="username"
                         autoFocus
-                        value={username}
+                        
                     />
                     <TextField 
                         variant="outlined"
@@ -64,7 +74,6 @@ const RegisterPage: React.FC = () => {
                         name="email"
                         autoComplete="email"
                         autoFocus
-                        value={email} 
                     />
                     <TextField
                         variant="outlined"
@@ -75,7 +84,6 @@ const RegisterPage: React.FC = () => {
                         label="Password"
                         type="password"
                         id="password1"
-                        value={password1}
                     />
                     <TextField
                         variant="outlined"
@@ -86,7 +94,6 @@ const RegisterPage: React.FC = () => {
                         label="Repeat Password"
                         type="password"
                         id="password2"
-                        value={password2}
                     />
                     <Button
                         type="submit"
