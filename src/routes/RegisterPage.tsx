@@ -6,7 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { useForm, Controller } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RegisterPage: React.FC = () => {
+    const { handleSubmit, control } = useForm();
     const classes = useStyles();
 
     const [registerData, setRegisterData] = useState({
@@ -43,7 +44,10 @@ const RegisterPage: React.FC = () => {
         }));
     };
 
-    
+    const onSubmit = (e: any) => {
+        console.log("handle submit");
+    };
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -52,57 +56,89 @@ const RegisterPage: React.FC = () => {
                     Register
                 </Typography>
                 <form className={classes.form}>
-                    <TextField 
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="username"
-                        label="Username"
+                    <Controller 
                         name="username"
-                        autoComplete="username"
-                        autoFocus
-                        value={registerData.username}
-                        onChange={handleChange}
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error }}) => (
+                            <TextField 
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="username"
+                                label="Username"
+                                name="username"
+                                autoComplete="username"
+                                autoFocus
+                                value={registerData.username}
+                                onChange={handleChange}
+                            />
+                        )}
+                        rules= {{ required: 'Username required'}}
                     />
-                    <TextField 
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="E-mail"
+                    <Controller 
                         name="email"
-                        autoComplete="email"
-                        autoFocus
-                        value={registerData.email}
-                        onChange={handleChange}
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error }}) => (
+                            <TextField 
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="E-mail"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                value={registerData.email}
+                                onChange={handleChange} 
+                            />
+                        )}
+                        rules={{ required: 'Email required' }}
                     />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password1"
-                        label="Password"
-                        type="password"
-                        id="password1"
-                        autoFocus
-                        value={registerData.password1}
-                        onChange={handleChange}
+                    <Controller
+                        name="password"
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password1"
+                                label="Password"
+                                type="password"
+                                id="password1"
+                                autoFocus
+                                value={registerData.password1}
+                                onChange={handleChange}
+                            />
+                        )}
+                        rules={{ required: 'Password required' }}
                     />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password2"
-                        label="Repeat Password"
-                        type="password"
-                        id="password2"
-                        autoFocus
-                        value={registerData.password2}
-                        onChange={handleChange}
+                    <Controller
+                        name="password"
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password2"
+                                label="Password"
+                                type="password"
+                                id="password2"
+                                autoFocus
+                                value={registerData.password2}
+                                onChange={handleChange}
+                            />
+                        )}
+                        rules={{ required: 'Password required' }}
                     />
                     <Button
                         type="submit"
@@ -110,6 +146,7 @@ const RegisterPage: React.FC = () => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={handleSubmit(onSubmit)}
                     >
                         Register
                     </Button>
@@ -120,3 +157,6 @@ const RegisterPage: React.FC = () => {
 };
 
 export default RegisterPage;
+
+
+                    
