@@ -6,7 +6,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -25,8 +27,24 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+interface FormFields {
+    username: string;
+    email: string;
+    password1: string;
+    password2: string;
+}
+
+const schema = yup.object().shape({
+    username: yup.string().required().max(50),
+    email: yup.string().required().email().max(100),
+    password1: yup.string().required(),
+    password2: yup.string().required()
+});
+
 const RegisterPage: React.FC = () => {
-    const { handleSubmit, control } = useForm();
+    const { register, handleSubmit } = useForm<FormFields>({
+        resolver: yupResolver(schema)
+    });
     const classes = useStyles();
 
     const [registerData, setRegisterData] = useState({
@@ -56,97 +74,61 @@ const RegisterPage: React.FC = () => {
                     Register
                 </Typography>
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-                    <Controller 
+                    <TextField 
+                        {...register('username')}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="username"
+                        label="Username"
                         name="username"
-                        control={control}
-                        defaultValue=""
-                        render={({ field: { onChange, value }, fieldState: { error }}) => (
-                            <TextField 
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="username"
-                                label="Username"
-                                name="username"
-                                autoComplete="username"
-                                autoFocus
-                                value={registerData.username}
-                                onChange={handleChange}
-                                error={!!error}
-                                helperText={error ? error.message : null}
-                            />
-                        )}
-                        rules= {{ required: 'Username required'}}
+                        autoComplete="username"
+                        autoFocus
+                        value={registerData.username}
+                        onChange={handleChange}
                     />
-                    <Controller 
+                    <TextField
+                        {...register('email')} 
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="E-mail"
                         name="email"
-                        control={control}
-                        defaultValue=""
-                        render={({ field: { onChange, value }, fieldState: { error }}) => (
-                            <TextField 
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="E-mail"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                                value={registerData.email}
-                                onChange={handleChange}
-                                error={!!error}
-                                helperText={error ? error.message : null} 
-                            />
-                        )}
-                        rules={{ required: 'Email required' }}
+                        autoComplete="email"
+                        autoFocus
+                        value={registerData.email}
+                        onChange={handleChange}
+                    />    
+                    <TextField
+                        {...register('password1')}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password1"
+                        label="Password"
+                        type="password"
+                        id="password1"
+                        autoFocus
+                        value={registerData.password1}
+                        onChange={handleChange}            
                     />
-                    <Controller
-                        name="password"
-                        control={control}
-                        defaultValue=""
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password1"
-                                label="Password"
-                                type="password"
-                                id="password1"
-                                autoFocus
-                                value={registerData.password1}
-                                onChange={handleChange}
-                                error={!!error}
-                                helperText={error ? error.message : null}
-                            />
-                        )}
-                        rules={{ required: 'Password required' }}
-                    />
-                    <Controller
-                        name="password"
-                        control={control}
-                        defaultValue=""
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password2"
-                                label="Password"
-                                type="password"
-                                id="password2"
-                                autoFocus
-                                value={registerData.password2}
-                                onChange={handleChange}
-                                error={!!error}
-                                helperText={error ? error.message : null}
-                            />
-                        )}
-                        rules={{ required: 'Password required' }}
+                    <TextField
+                        {...register('password2')}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password2"
+                        label="Password"
+                        type="password"
+                        id="password2"
+                        autoFocus
+                        value={registerData.password2}
+                        onChange={handleChange}
                     />
                     <Button
                         type="submit"
