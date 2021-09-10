@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useRegisterForm from '../hooks/forms/useRegisterForm';
 //materialUI
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -6,9 +7,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -27,44 +25,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-interface FormFields {
-  username: string;
-  email: string;
-  password1: string;
-  password2: string;
-}
-
-const schema = yup.object().shape({
-  username: yup.string().required().max(50),
-  email: yup.string().required().email().max(100),
-  password1: yup.string().required(),
-  password2: yup.string().required()
-});
-
 const RegisterPage: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormFields>({
-    resolver: yupResolver(schema)
-  });
+  const { register, handleSubmit, handleChange, onSubmit, registerData } =
+    useRegisterForm();
   const classes = useStyles();
-
-  const [registerData, setRegisterData] = useState({
-    username: '',
-    email: '',
-    password1: '',
-    password2: ''
-  });
-
-  const handleChange = (e: any) => {
-    const { id, value } = e.target;
-    setRegisterData(prevRegisterData => ({
-      ...prevRegisterData,
-      [id]: value
-    }));
-  };
-
-  const onSubmit = (e: any) => {
-    console.log('handle submit');
-  };
 
   return (
     <Container component="main" maxWidth="xs">
