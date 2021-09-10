@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { RegisterFormFields } from '../interfaces/forms';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -27,13 +28,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-interface FormFields {
-  username: string;
-  email: string;
-  password1: string;
-  password2: string;
-}
-
 const schema = yup.object().shape({
   username: yup.string().required().max(50),
   email: yup.string().required().email().max(100),
@@ -42,7 +36,7 @@ const schema = yup.object().shape({
 });
 
 const RegisterPage: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormFields>({
+  const { register, handleSubmit } = useForm<RegisterFormFields>({
     resolver: yupResolver(schema)
   });
   const classes = useStyles();
