@@ -42,7 +42,14 @@ const RegisterPage: React.FC = () => {
   const classes = useStyles();
 
   if (register.isSuccess) {
-    return <Redirect to="/login" />;
+    return (
+      <Redirect
+        to={{
+          pathname: '/login',
+          state: { message: 'You have been successfully registered' }
+        }}
+      />
+    );
   }
 
   return (
