@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import useRegisterForm from '../hooks/forms/useRegisterForm';
 import useRegister from '../hooks/auth/useRegister';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -39,6 +40,10 @@ const RegisterPage: React.FC = () => {
   const register = useRegister();
 
   const classes = useStyles();
+
+  if (register.isSuccess) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -107,6 +112,11 @@ const RegisterPage: React.FC = () => {
             value={registerData.password2}
             onChange={handleChange}
           />
+          {register.isError && (
+            <Typography color="error">
+              Error: {register.error?.message}
+            </Typography>
+          )}
           <Button
             type="submit"
             fullWidth
