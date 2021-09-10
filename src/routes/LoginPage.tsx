@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-
+import React from 'react';
+import useLoginForm from '../hooks/forms/useLoginForm';
 //materialUI
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -9,7 +9,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { LoginFormFields } from '../interfaces/forms';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -29,25 +28,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LoginPage: React.FC = () => {
+  const { handleChange, handleSubmit, loginData } = useLoginForm();
+
   const classes = useStyles();
-
-  const [loginData, setLoginData] = useState<LoginFormFields>({
-    username: '',
-    password: ''
-  });
-
-  const handleChange = (e: any) => {
-    const { id, value } = e.target;
-    setLoginData(prevLoginData => ({
-      ...prevLoginData,
-      [id]: value
-    }));
-  };
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    console.log('handle submit');
-  };
 
   return (
     <Container component="main" maxWidth="xs">
