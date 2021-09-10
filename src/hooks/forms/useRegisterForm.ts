@@ -1,22 +1,15 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RegisterFormFields } from '../../interfaces/forms';
-
-const schema = yup.object().shape({
-  username: yup.string().required().max(50),
-  email: yup.string().required().email().max(100),
-  password1: yup.string().required(),
-  password2: yup.string().required()
-});
+import { registerSchema } from '../../schemas/auth';
 
 const useRegisterForm = () => {
   const { register, handleSubmit } = useForm<RegisterFormFields>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(registerSchema)
   });
 
-  const [registerData, setRegisterData] = useState({
+  const [registerData, setRegisterData] = useState<RegisterFormFields>({
     username: '',
     email: '',
     password1: '',
@@ -31,8 +24,10 @@ const useRegisterForm = () => {
     }));
   };
 
-  const onSubmit = (e: any) => {
-    console.log('handle submit');
+  const onSubmit: SubmitHandler<RegisterFormFields> = (
+    e: RegisterFormFields
+  ) => {
+    console.log(e);
   };
 
   return {
