@@ -1,12 +1,16 @@
-import React from 'react';
-import useRegisterForm from '../hooks/forms/useRegisterForm';
 //materialUI
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
+
+import React from 'react';
+import useRegisterForm from '../hooks/forms/useRegisterForm';
+import useRegister from '../hooks/auth/useRegister';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -26,9 +30,27 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const RegisterPage: React.FC = () => {
-  const { register, handleSubmit, handleChange, onSubmit, registerData } =
-    useRegisterForm();
+  const {
+    register: registerControl,
+    handleSubmit,
+    handleChange,
+    registerData
+  } = useRegisterForm();
+
+  const register = useRegister();
+
   const classes = useStyles();
+
+  if (register.isSuccess) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/login',
+          state: { message: 'You have been successfully registered' }
+        }}
+      />
+    );
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -37,9 +59,12 @@ const RegisterPage: React.FC = () => {
         <Typography component="h2" variant="h5">
           Register
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className={classes.form}
+          onSubmit={handleSubmit(data => register.sendRequest(data))}
+        >
           <TextField
-            {...register('username')}
+            {...registerControl('username')}
             variant="outlined"
             margin="normal"
             required
@@ -53,7 +78,7 @@ const RegisterPage: React.FC = () => {
             onChange={handleChange}
           />
           <TextField
-            {...register('email')}
+            {...registerControl('email')}
             variant="outlined"
             margin="normal"
             required
@@ -67,7 +92,7 @@ const RegisterPage: React.FC = () => {
             onChange={handleChange}
           />
           <TextField
-            {...register('password1')}
+            {...registerControl('password1')}
             variant="outlined"
             margin="normal"
             required
@@ -81,7 +106,7 @@ const RegisterPage: React.FC = () => {
             onChange={handleChange}
           />
           <TextField
-            {...register('password2')}
+            {...registerControl('password2')}
             variant="outlined"
             margin="normal"
             required
@@ -94,6 +119,11 @@ const RegisterPage: React.FC = () => {
             value={registerData.password2}
             onChange={handleChange}
           />
+          {register.isError && (
+            <Typography color="error">
+              Error: {register.error?.message}
+            </Typography>
+          )}
           <Button
             type="submit"
             fullWidth
@@ -104,6 +134,7 @@ const RegisterPage: React.FC = () => {
             Register
           </Button>
         </form>
+        {register.isLoading && <LinearProgress color="primary" />}
       </div>
     </Container>
   );

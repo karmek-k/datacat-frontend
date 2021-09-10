@@ -1,5 +1,3 @@
-import React from 'react';
-import useLoginForm from '../hooks/forms/useLoginForm';
 //materialUI
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +7,11 @@ import TextField from '@material-ui/core/TextField';
 // import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+
+import React from 'react';
+import useLoginForm from '../hooks/forms/useLoginForm';
+import { FlashMessage } from '../interfaces/FlashMessage';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -31,6 +34,8 @@ const LoginPage: React.FC = () => {
   const { handleChange, handleSubmit, loginData, onSubmit, register } =
     useLoginForm();
 
+  const { state } = useLocation<FlashMessage>();
+
   const classes = useStyles();
 
   return (
@@ -40,6 +45,7 @@ const LoginPage: React.FC = () => {
         <Typography component="h2" variant="h5">
           Login
         </Typography>
+        {state.message && <Typography>{state.message}</Typography>}
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <TextField
             {...register('username')}
