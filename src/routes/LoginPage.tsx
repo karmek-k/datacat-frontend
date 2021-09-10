@@ -5,8 +5,8 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -28,7 +28,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LoginPage: React.FC = () => {
-  const { handleChange, handleSubmit, loginData } = useLoginForm();
+  const { handleChange, handleSubmit, loginData, onSubmit, register } =
+    useLoginForm();
 
   const classes = useStyles();
 
@@ -39,8 +40,9 @@ const LoginPage: React.FC = () => {
         <Typography component="h2" variant="h5">
           Login
         </Typography>
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <TextField
+            {...register('username')}
             variant="outlined"
             margin="normal"
             required
@@ -54,6 +56,7 @@ const LoginPage: React.FC = () => {
             onChange={handleChange}
           />
           <TextField
+            {...register('password')}
             variant="outlined"
             margin="normal"
             required
@@ -66,17 +69,16 @@ const LoginPage: React.FC = () => {
             value={loginData.password}
             onChange={handleChange}
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleSubmit}
           >
             Sign In
           </Button>
