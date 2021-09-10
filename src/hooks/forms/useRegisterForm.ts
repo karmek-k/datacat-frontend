@@ -25,9 +25,9 @@ const useRegisterForm = () => {
   };
 
   const onSubmit: SubmitHandler<RegisterFormFields> = (
-    e: RegisterFormFields
+    data: RegisterFormFields
   ) => {
-    console.log(e);
+    console.log(data);
   };
 
   return {
