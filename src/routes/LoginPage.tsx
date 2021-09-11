@@ -7,12 +7,15 @@ import TextField from '@material-ui/core/TextField';
 // import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import React from 'react';
 import useLoginForm from '../hooks/forms/useLoginForm';
 import { FlashMessage } from '../interfaces/FlashMessage';
-import { useLocation } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import Layout from '../components/shared/Layout';
+import useLogin from '../hooks/auth/useLogin';
+import useToken from '../hooks/auth/useToken';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -31,12 +34,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LoginPage: React.FC = () => {
-  const { handleChange, handleSubmit, loginData, onSubmit, register } =
-    useLoginForm();
+  const { handleChange, handleSubmit, loginData, register } = useLoginForm();
+  const login = useLogin();
+  const token = useToken();
 
   const { state } = useLocation<FlashMessage>();
 
   const classes = useStyles();
+
+  if (login.isSuccess) {
+    token.persist(login.token!);
+
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Layout>
@@ -47,7 +57,10 @@ const LoginPage: React.FC = () => {
             Login
           </Typography>
           {state?.message && <Typography>{state?.message}</Typography>}
-          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+          <form
+            className={classes.form}
+            onSubmit={handleSubmit(data => login.sendRequest(data))}
+          >
             <TextField
               {...register('username')}
               variant="outlined"
@@ -80,6 +93,11 @@ const LoginPage: React.FC = () => {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           /> */}
+            {login.isError && (
+              <Typography color="error">
+                Error: {login.error?.message}
+              </Typography>
+            )}
             <Button
               type="submit"
               fullWidth
@@ -90,6 +108,7 @@ const LoginPage: React.FC = () => {
               Sign In
             </Button>
           </form>
+          {login.isLoading && <LinearProgress color="primary" />}
         </div>
       </Container>
     </Layout>
