@@ -9,6 +9,7 @@ import LoginPage from './routes/LoginPage';
 import RegisterPage from './routes/RegisterPage';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from './utils/api';
+import ProtectedRoute from './components/router/ProtectedRoute';
 
 function App() {
   return (
@@ -16,9 +17,9 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route path="/dashboard" component={DashboardPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/register" component={RegisterPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
+          <ProtectedRoute path="/dashboard" component={DashboardPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </BrowserRouter>
