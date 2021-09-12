@@ -1,13 +1,13 @@
 import React from 'react';
 import Alert from '@material-ui/lab/Alert';
-import { DashboardService } from '../../interfaces/DashboardService';
+import { Job } from '../../interfaces/Job';
 
 interface Props {
-  services: DashboardService[];
+  jobs: Job[];
 }
 
-const DownServicesAlert: React.FC<Props> = ({ services }) => {
-  const downCount = services.filter(item => item.downFor !== null).length;
+const DownJobsAlert: React.FC<Props> = ({ jobs }) => {
+  const downCount = jobs.filter(item => item.downFor !== null).length;
 
   if (downCount > 0) {
     return (
@@ -20,4 +20,4 @@ const DownServicesAlert: React.FC<Props> = ({ services }) => {
   return <Alert severity="success">All services functional</Alert>;
 };
 
-export default DownServicesAlert;
+export default DownJobsAlert;

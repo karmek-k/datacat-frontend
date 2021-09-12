@@ -1,4 +1,4 @@
-export interface DashboardService {
+export interface Job {
   name: string;
   url: string;
   downFor: number | null;
