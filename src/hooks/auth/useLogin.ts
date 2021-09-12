@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
 import { LoginFormFields } from '../../interfaces/forms';
-import { UserLoginData } from '../../interfaces/resources';
+import { UserLoginData } from '../../interfaces/resources/users';
 import api from '../../utils/api';
 
 const mutationFn = async (input: LoginFormFields) => {

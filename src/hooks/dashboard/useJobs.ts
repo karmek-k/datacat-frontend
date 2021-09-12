@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Job } from '../../interfaces/Job';
+import { Job } from '../../interfaces/resources/jobs';
 import api from '../../utils/api';
 import useToken from '../auth/useToken';
 

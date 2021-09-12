@@ -1,6 +1,6 @@
 import React from 'react';
 import Alert from '@material-ui/lab/Alert';
-import { Job } from '../../interfaces/Job';
+import { Job } from '../../interfaces/resources/jobs';
 
 interface Props {
   jobs: Job[];
