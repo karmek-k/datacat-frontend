@@ -1,22 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { Job } from '../../interfaces/resources/jobs';
 import api from '../../utils/api';
 import useToken from '../auth/useToken';
 
 const useJobs = () => {
   const token = useToken();
-  const [jobs, setJobs] = useState<Job[] | null>(null);
-  useEffect(() => console.log(jobs), [jobs]);
+  const { isError, data, error } = useQuery<Job[]>('jobs', () =>
+    api
+      .get<{ job: Job[] }>('/protected/jobs', {
+        headers: { Authorization: `Bearer ${token.retrieve()}` }
+      })
+      .then(res => res.data.job)
+  );
 
-  api
-    .get<{ job: Job[] }>('/protected/jobs', {
-      headers: { Authorization: `Bearer ${token.retrieve()}` }
-    })
-    .then(res => {
-      setJobs(res.data.job);
-    });
-
-  return jobs;
+  return {
+    isError,
+    data,
+    error
+  };
 };
 
 export default useJobs;

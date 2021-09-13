@@ -1,5 +1,10 @@
 export interface Job {
-  name: string;
-  url: string;
-  downFor: number | null;
+  id: number;
+  jobName: string;
+  jobUrl: string;
+  frequency: number;
+  userID: number;
+  active: boolean;
+  createdAt: Date;
+  modifiedAt: Date;
 }

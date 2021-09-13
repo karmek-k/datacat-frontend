@@ -1,41 +1,18 @@
 import React from 'react';
-import DownServicesAlert from '../components/dashboard/DownServicesAlert';
+import DownJobsAlert from '../components/dashboard/DownJobsAlert';
 import Layout from '../components/shared/Layout';
 import useJobs from '../hooks/dashboard/useJobs';
-
-// const mockData: DashboardService[] = [
-//   {
-//     name: 'CatPics',
-//     url: 'https://catpics.com',
-//     downFor: null
-//   },
-//   {
-//     name: 'PuppyPics',
-//     url: 'https://puppypics.com',
-//     downFor: null
-//   },
-//   {
-//     name: 'CatPicsOnCheapServer',
-//     url: 'https://catpics.com',
-//     downFor: 60
-//   },
-//   {
-//     name: 'CatPicsFTP',
-//     url: 'ftp://catpics.com',
-//     downFor: null
-//   }
-// ];
 
 const DashboardPage: React.FC = () => {
   const jobs = useJobs();
 
   return (
     <Layout>
-      {jobs ? (
+      {jobs.data ? (
         <>
-          <DownServicesAlert jobs={jobs} />
-          {jobs.map(job => (
-            <p>{job.name}</p>
+          <DownJobsAlert downCount={1} />
+          {jobs.data.map(job => (
+            <p key={job.id}>{job.jobName}</p>
           ))}
         </>
       ) : (
