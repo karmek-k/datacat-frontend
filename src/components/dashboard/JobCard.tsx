@@ -1,7 +1,7 @@
 import React from 'react';
-import { Job } from '../../interfaces/resources/jobs';
+import { Job, statusColors } from '../../interfaces/resources/jobs';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -10,10 +10,10 @@ interface Props {
   job: Job;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<Theme, { color: string }>({
   iconArea: {
     color: 'white',
-    background: '#7DD77B'
+    background: props => props.color
   },
   jobDataArea: {
     display: 'flex',
@@ -22,7 +22,8 @@ const useStyles = makeStyles({
 });
 
 const JobCard: React.FC<Props> = ({ job }) => {
-  const classes = useStyles();
+  const color = statusColors.get(job.status)!;
+  const classes = useStyles({ color });
 
   return (
     <Paper>
