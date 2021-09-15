@@ -10,14 +10,31 @@ interface Props {
   job: Job;
 }
 
-const useStyles = makeStyles<Theme, { color: string }>({
+interface StylesProps {
+  color: string;
+}
+
+const useStyles = makeStyles<Theme, StylesProps>({
+  root: {
+    maxWidth: '400px',
+    borderRadius: '10px'
+  },
   iconArea: {
     color: 'white',
-    background: props => props.color
+    background: props => props.color,
+    height: '5rem',
+    width: '5rem',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '10px'
   },
   jobDataArea: {
+    padding: '1rem',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginLeft: '0.5rem'
   }
 });
 
@@ -26,10 +43,10 @@ const JobCard: React.FC<Props> = ({ job }) => {
   const classes = useStyles({ color });
 
   return (
-    <Paper>
+    <Paper className={classes.root} elevation={3}>
       <Grid container>
         <Grid item className={classes.iconArea}>
-          <DoneIcon />
+          <DoneIcon fontSize="large" />
         </Grid>
         <Grid item className={classes.jobDataArea}>
           <Typography>{job.jobName}</Typography>
