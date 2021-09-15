@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/Help';
 import ClearIcon from '@material-ui/icons/Clear';
+import { Link } from 'react-router-dom';
 
 interface Props {
   job: Job;
@@ -64,17 +65,19 @@ const JobCard: React.FC<Props> = ({ job }) => {
 
   // TODO: improve accessibility
   return (
-    <Paper className={classes.root} elevation={3}>
-      <Grid container>
-        <Grid item className={classes.iconArea}>
-          {icon}
+    <Link to={`/details/${job.id}`} style={{ textDecoration: 'none' }}>
+      <Paper className={classes.root} elevation={3}>
+        <Grid container>
+          <Grid item className={classes.iconArea}>
+            {icon}
+          </Grid>
+          <Grid item className={classes.jobDataArea}>
+            <Typography>{job.jobName}</Typography>
+            <Typography>{job.jobUrl}</Typography>
+          </Grid>
         </Grid>
-        <Grid item className={classes.jobDataArea}>
-          <Typography>{job.jobName}</Typography>
-          <Typography>{job.jobUrl}</Typography>
-        </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </Link>
   );
 };
 
