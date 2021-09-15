@@ -5,10 +5,13 @@ import Layout from '../components/shared/Layout';
 import useJobs from '../hooks/jobs/useJobs';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
+import dayjs from 'dayjs';
 
 const useStyles = makeStyles({
   textCentered: {
-    textAlign: 'center'
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   }
 });
 
@@ -36,11 +39,20 @@ const JobDetailsPage: React.FC = () => {
     return <Redirect to="/dashboard" />;
   }
 
+  const createdAt = dayjs(job.createdAt);
+  const modifiedAt = dayjs(job.modifiedAt);
+
   return (
     <Layout>
-      <Typography variant="h3" className={classes.textCentered}>
-        {job.jobName}
-      </Typography>
+      <div className={classes.textCentered}>
+        <Typography variant="h3">{job.jobName}</Typography>
+        <Typography>
+          Created <b>{createdAt.fromNow()}</b>
+        </Typography>
+        <Typography>
+          Modified <b>{modifiedAt.fromNow()}</b>
+        </Typography>
+      </div>
     </Layout>
   );
 };
