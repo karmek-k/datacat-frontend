@@ -2,7 +2,7 @@ import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import DownJobsAlert from '../components/dashboard/DownJobsAlert';
 import Layout from '../components/shared/Layout';
-import useJobs from '../hooks/dashboard/useJobs';
+import useJobs from '../hooks/jobs/useJobs';
 import { JobStatus } from '../interfaces/resources/jobs';
 import JobCard from '../components/dashboard/JobCard';
 
