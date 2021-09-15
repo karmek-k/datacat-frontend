@@ -14,7 +14,7 @@ const DownJobsAlert: React.FC<Props> = ({ downCount }) => {
     );
   }
 
-  return <Alert severity="success">All services functional</Alert>;
+  return <Alert severity="success">All services are functional</Alert>;
 };
 
 export default DownJobsAlert;
