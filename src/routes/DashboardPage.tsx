@@ -32,7 +32,9 @@ const DashboardPage: React.FC = () => {
         }
       />
       {jobs.data.map(job => (
-        <Typography key={job.id}>{job.jobName}</Typography>
+        <Typography key={job.id}>
+          {job.jobName} (status: {job.status})
+        </Typography>
       ))}
     </Layout>
   );
