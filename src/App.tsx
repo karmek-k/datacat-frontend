@@ -14,8 +14,12 @@ import ProtectedRoute from './components/router/ProtectedRoute';
 import { MuiThemeProvider } from '@material-ui/core';
 import { defaultTheme } from './themes/default';
 import JobDetailsPage from './routes/JobDetailsPage';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 function App() {
+  dayjs.extend(relativeTime);
+
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <QueryClientProvider client={queryClient}>
