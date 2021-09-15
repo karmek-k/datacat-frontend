@@ -7,10 +7,10 @@ const useJobs = () => {
   const token = useToken();
   const { isError, data, error } = useQuery<Job[]>('jobs', () =>
     api
-      .get<{ job: Job[] }>('/protected/jobs', {
+      .get<{ jobs: Job[] }>('/protected/jobs', {
         headers: { Authorization: `Bearer ${token.retrieve()}` }
       })
-      .then(res => res.data.job)
+      .then(res => res.data.jobs)
   );
 
   return {

@@ -1,3 +1,9 @@
+export enum JobStatus {
+  NA = 'NA',
+  UP = 'UP',
+  DOWN = 'DOWN'
+}
+
 export interface Job {
   id: number;
   jobName: string;
@@ -7,4 +13,5 @@ export interface Job {
   active: boolean;
   createdAt: Date;
   modifiedAt: Date;
+  status: JobStatus;
 }
