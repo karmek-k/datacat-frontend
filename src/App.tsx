@@ -13,6 +13,7 @@ import { queryClient } from './utils/api';
 import ProtectedRoute from './components/router/ProtectedRoute';
 import { MuiThemeProvider } from '@material-ui/core';
 import { defaultTheme } from './themes/default';
+import JobDetailsPage from './routes/JobDetailsPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
             <ProtectedRoute path="/dashboard" component={DashboardPage} />
+            <ProtectedRoute path="/details/:jobId" component={JobDetailsPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </BrowserRouter>
