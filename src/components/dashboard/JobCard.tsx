@@ -19,7 +19,8 @@ interface StylesProps {
 const useStyles = makeStyles<Theme, StylesProps>({
   root: {
     maxWidth: '400px',
-    borderRadius: '10px'
+    borderRadius: '10px',
+    cursor: 'pointer'
   },
   iconArea: {
     color: 'white',
