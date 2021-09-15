@@ -1,10 +1,12 @@
 import React from 'react';
-import { Job, statusColors } from '../../interfaces/resources/jobs';
+import { Job, JobStatus, statusColors } from '../../interfaces/resources/jobs';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, Theme } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import HelpIcon from '@material-ui/icons/Help';
+import ClearIcon from '@material-ui/icons/Clear';
 
 interface Props {
   job: Job;
@@ -39,14 +41,31 @@ const useStyles = makeStyles<Theme, StylesProps>({
 });
 
 const JobCard: React.FC<Props> = ({ job }) => {
-  const color = statusColors.get(job.status)!;
+  const { status } = job;
+
+  const color = statusColors.get(status)!;
   const classes = useStyles({ color });
+
+  let icon;
+  const iconFontSize = 'large';
+
+  switch (status) {
+    case JobStatus.UP:
+      icon = <DoneIcon fontSize={iconFontSize} />;
+      break;
+    case JobStatus.DOWN:
+      icon = <ClearIcon fontSize={iconFontSize} />;
+      break;
+    case JobStatus.NA:
+      icon = <HelpIcon fontSize={iconFontSize} />;
+      break;
+  }
 
   return (
     <Paper className={classes.root} elevation={3}>
       <Grid container>
         <Grid item className={classes.iconArea}>
-          <DoneIcon fontSize="large" />
+          {icon}
         </Grid>
         <Grid item className={classes.jobDataArea}>
           <Typography>{job.jobName}</Typography>
