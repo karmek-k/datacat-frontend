@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
 import { RegisterFormFields } from '../../interfaces/forms';
-import { UserRegisterData } from '../../interfaces/resources';
+import { UserRegisterData } from '../../interfaces/resources/users';
 import api from '../../utils/api';
 
 const useRegister = () => {

@@ -8,6 +8,7 @@ import DashboardPage from './routes/DashboardPage';
 import LoginPage from './routes/LoginPage';
 import RegisterPage from './routes/RegisterPage';
 import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { queryClient } from './utils/api';
 import ProtectedRoute from './components/router/ProtectedRoute';
 
@@ -23,6 +24,9 @@ function App() {
           <Route component={NotFoundPage} />
         </Switch>
       </BrowserRouter>
+
+      {/* TODO: remove devtools when deploying */}
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }
