@@ -11,8 +11,8 @@ export interface Job {
   frequency: number;
   userID: number;
   active: boolean;
-  createdAt: Date;
-  modifiedAt: Date;
+  createdAt: string;
+  modifiedAt: string;
   status: JobStatus;
 }
 
