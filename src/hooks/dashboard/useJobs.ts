@@ -5,7 +5,7 @@ import useToken from '../auth/useToken';
 
 const useJobs = () => {
   const token = useToken();
-  const { isError, data, error } = useQuery<Job[]>('jobs', () =>
+  const { isError, data, error, isLoading } = useQuery<Job[]>('jobs', () =>
     api
       .get<{ jobs: Job[] }>('/protected/jobs', {
         headers: { Authorization: `Bearer ${token.retrieve()}` }
@@ -15,6 +15,7 @@ const useJobs = () => {
 
   return {
     isError,
+    isLoading,
     data,
     error
   };
