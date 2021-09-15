@@ -61,6 +61,7 @@ const JobCard: React.FC<Props> = ({ job }) => {
       break;
   }
 
+  // TODO: improve accessibility
   return (
     <Paper className={classes.root} elevation={3}>
       <Grid container>
