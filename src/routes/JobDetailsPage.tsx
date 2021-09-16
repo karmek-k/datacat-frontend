@@ -47,10 +47,10 @@ const JobDetailsPage: React.FC = () => {
       <div className={classes.textCentered}>
         <Typography variant="h3">{job.jobName}</Typography>
         <Typography>
-          Created <b>{createdAt.fromNow()}</b>
+          Created {createdAt.fromNow()} ({createdAt.format('YYYY/MM/DD')})
         </Typography>
         <Typography>
-          Modified <b>{modifiedAt.fromNow()}</b>
+          Modified {modifiedAt.fromNow()} ({modifiedAt.format('YYYY/MM/DD')})
         </Typography>
       </div>
     </Layout>
