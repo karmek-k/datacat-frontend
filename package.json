@@ -54,6 +54,5 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.1.7",
     "prettier": "^2.3.0"
-  },
-  "proxy": "http://localhost:8888"
+  }
 }
