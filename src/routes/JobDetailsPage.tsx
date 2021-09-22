@@ -6,6 +6,7 @@ import useJobs from '../hooks/jobs/useJobs';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
 import dayjs from 'dayjs';
+import ToggleActiveButton from '../components/details/ToggleActiveButton';
 
 const useStyles = makeStyles({
   textCentered: {
@@ -52,6 +53,7 @@ const JobDetailsPage: React.FC = () => {
         <Typography>
           Modified {modifiedAt.fromNow()} ({modifiedAt.format('YYYY/MM/DD')})
         </Typography>
+        <ToggleActiveButton job={job} />
       </div>
     </Layout>
   );
